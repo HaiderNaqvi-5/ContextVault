@@ -1,6 +1,8 @@
-# RAG-cyberify
+# ContextVault
 
 > A lightweight, grounded knowledge assistant: index local documents, retrieve the relevant passages, and answer with that context.
+
+Repository: [HaiderNaqvi-5/ContextVault](https://github.com/HaiderNaqvi-5/ContextVault)
 
 A Retrieval-Augmented Generation (RAG) application for answering questions from local knowledge documents. It ingests text into a PostgreSQL+pgvector-backed index, retrieves the most relevant chunks, and passes the context to an LLM for grounded answers.
 
@@ -56,8 +58,8 @@ RAG-cyberify/
 Clone the repository and enter it:
 
 ```bash
-git clone https://github.com/HaiderNaqvi-5/RAG-cyberify.git
-cd RAG-cyberify
+git clone https://github.com/HaiderNaqvi-5/ContextVault.git
+cd ContextVault
 ```
 
 Create and activate a virtual environment:
