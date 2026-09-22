@@ -1,6 +1,8 @@
-# RAG-cyberify
+# ContextVault
 
 > A grounded knowledge assistant and document workflow: search local content with RAG, then answer using only the retrieved context.
+
+Repository: [HaiderNaqvi-5/ContextVault](https://github.com/HaiderNaqvi-5/ContextVault)
 
 RAG-cyberify is a lightweight Retrieval-Augmented Generation application for grounding answers in local documents. It ingests source content into a PostgreSQL + pgvector database, chunks and embeds the text, retrieves relevant passages, and uses an LLM to answer questions based only on that retrieved context.
 
@@ -45,7 +47,7 @@ Question → relevant chunks → OpenAI chat model → context-grounded answer
 ## Repository structure
 
 ```text
-RAG-cyberify/
+ContextVault/
 ├── app/                 # API, RAG pipeline, resume workflow, and validation
 ├── db/                  # SQL schema and DB-related assets
 ├── seed/                # sample source documents
@@ -74,7 +76,7 @@ Before starting, make sure you have:
 1. Clone the repository and enter it:
 
 ```bash
-cd /path/to/RAG-cyberify-master
+cd /path/to/ContextVault
 ```
 
 2. Create and activate a virtual environment:
