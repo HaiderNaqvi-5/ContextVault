@@ -1,4 +1,6 @@
-﻿# RAG-cyberify
+# RAG-cyberify
+
+> A lightweight, grounded knowledge assistant: index local documents, retrieve the relevant passages, and answer with that context.
 
 A Retrieval-Augmented Generation (RAG) application for answering questions from local knowledge documents. It ingests text into a PostgreSQL+pgvector-backed index, retrieves the most relevant chunks, and passes the context to an LLM for grounded answers.
 
@@ -10,6 +12,13 @@ A Retrieval-Augmented Generation (RAG) application for answering questions from 
 - Question answering grounded in retrieved context only
 - Simple frontend served from the `static/` folder
 - FastAPI API for ingestion, retrieval, and health checks
+
+## How it works
+
+```text
+Source text → chunking → OpenAI embeddings → PostgreSQL + pgvector index
+Question → relevant chunks → OpenAI chat model → context-grounded answer
+```
 
 ## Tech stack
 
@@ -44,10 +53,29 @@ RAG-cyberify/
 
 ## Setup
 
+Clone the repository and enter it:
+
 ```bash
-cd C:\Users\Admin\RAG-cyberify
+git clone https://github.com/HaiderNaqvi-5/RAG-cyberify.git
+cd RAG-cyberify
+```
+
+Create and activate a virtual environment:
+
+```bash
 python -m venv .venv
-.venv\Scripts\activate
+source .venv/bin/activate
+```
+
+On Windows PowerShell, activate it with:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
@@ -82,6 +110,8 @@ Then open:
 - Frontend: http://127.0.0.1:8000/
 - API docs: http://127.0.0.1:8000/docs
 
+The frontend is served by FastAPI, so no separate frontend development server is required.
+
 ## Core API endpoints
 
 ```http
@@ -92,6 +122,8 @@ GET  /api/documents
 DELETE /api/documents/{document_id}
 POST /api/ask
 ```
+
+`/api/ingest/file` accepts UTF-8 `.txt` or `.md` files. Use `/api/ingest` when sending content directly in JSON.
 
 ### Example: ingest a document
 
@@ -127,3 +159,5 @@ pytest -q
 - The app answers only from retrieved context.
 - It is designed as a grounded document Q&A system, not a general-purpose open-ended chatbot.
 - Frontend files are served from the `static/` directory.
+- Keep secrets in `.env`; commit only the placeholder values in `.env.example`.
+- Retrieval quality depends on the source material, chunking settings, and score threshold configured in `.env`.
