@@ -1,5 +1,7 @@
 # RAG-cyberify
 
+> A grounded knowledge assistant and document workflow: search local content with RAG, then answer using only the retrieved context.
+
 RAG-cyberify is a lightweight Retrieval-Augmented Generation application for grounding answers in local documents. It ingests source content into a PostgreSQL + pgvector database, chunks and embeds the text, retrieves relevant passages, and uses an LLM to answer questions based only on that retrieved context.
 
 ## Why this project exists
@@ -23,6 +25,13 @@ This project is useful for:
 - Signature upload and storage for generated documents
 - Simple frontend served from the `static/` folder
 - Tests for ingestion, retrieval, and DB behavior
+
+## How it works
+
+```text
+Text or supported document → chunking → OpenAI embeddings → PostgreSQL + pgvector
+Question → relevant chunks → OpenAI chat model → context-grounded answer
+```
 
 ## Tech stack
 
@@ -129,6 +138,8 @@ Then open the app in a browser:
 - Frontend: http://127.0.0.1:8000/
 - API docs: http://127.0.0.1:8000/docs
 
+The frontend is served by the FastAPI application, so a separate frontend development server is not required.
+
 ## API endpoints
 
 ```http
@@ -142,7 +153,11 @@ POST /api/resume/collect
 POST /api/resume/generate-document
 POST /api/resume/update-document
 POST /api/signature/upload
+POST /api/documents/upload
+GET  /api/files/{filename}
 ```
+
+`/api/ingest/file` accepts UTF-8 `.txt` or `.md` content. For DOCX upload and indexing, use `/api/documents/upload`.
 
 ### Example: ingest a document
 
@@ -202,3 +217,5 @@ pytest -q
 - It is meant to be a grounded document Q&A system rather than a general-purpose chatbot.
 - Frontend assets are served out of the `static/` directory.
 - Local secrets should stay in `.env`, which is intentionally not committed.
+- Generated documents and uploaded runtime files are stored under `storage/` and are intentionally excluded from Git.
+- Retrieval quality depends on the source material, chunking configuration, and the score threshold in `.env`.
